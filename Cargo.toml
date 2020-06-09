@@ -5,7 +5,6 @@ authors = ["10xcryptodev <10xcryptodev@gmail.com>"]
 edition = "2018"
 description = "Basic Rust DAPI Client"
 license = "MIT"
-license-file = "LICENSE"
 repository = "https://github.com/10xcryptodev/dapi-client-rust"
 keywords = ["Dash", "DAPI"]
 documentation = "https://dashplatform.readme.io/docs/reference-dapi-endpoints"
