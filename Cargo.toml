@@ -3,7 +3,13 @@ name = "dapi-client-rust"
 version = "0.1.0"
 authors = ["10xcryptodev <10xcryptodev@gmail.com>"]
 edition = "2018"
-
+description = "Basic Rust DAPI Client"
+license = "MIT"
+license-file = "LICENSE"
+repository = "https://github.com/10xcryptodev/dapi-client-rust"
+keywords = ["Dash", "DAPI"]
+documentation = "https://dashplatform.readme.io/docs/reference-dapi-endpoints"
+readme = "README.md"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
