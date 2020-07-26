@@ -37,7 +37,7 @@ struct GetAddressSummaryResult {
 #[allow(non_snake_case)]
 struct GetMnListDiffParameter {
     baseBlockHash : String,
-    blockHash : String
+    blockHash : String,
 }
 
 #[derive(Serialize,Deserialize,Debug)]
@@ -48,7 +48,7 @@ struct Mn{
     service : String,
     pubKeyOperator : String,
     votingAddress : String,
-    isValid : bool
+    isValid : bool,
 }
 
 #[derive(Serialize,Deserialize,Debug)]
@@ -59,7 +59,38 @@ struct GetMnListDiffResult {
     cbTxMerkleTree : String,
     cbTx : String,
     deletedMNs : Vec<Mn>,
-    mnList : Vec<Mn>
+    mnList : Vec<Mn>,
+}
+
+#[derive(Serialize,Deserialize,Debug)]
+#[allow(non_snake_case)]
+struct GetUTXOParameter {
+    address : Vec<String>,
+    from : i32,
+    to : i32,
+    fromHeight : i32,
+    toHeight : i32,
+}
+
+#[derive(Serialize,Deserialize,Debug)]
+#[allow(non_snake_case)]
+struct UTXOItem {
+    address : String,
+    txid: String,
+    outputIndex: i32,
+    script : String,
+    satoshis : i64,
+    height: i64,
+}
+
+#[derive(Serialize,Deserialize,Debug)]
+#[allow(non_snake_case)]
+struct GetUTXOResult {
+    totalItems : i32,
+    from : i32,
+    to : i32,
+    fromHeight: i64,
+    items : Vec<UTXOItem>,
 }
 
 fn main() {
@@ -94,6 +125,20 @@ fn main() {
     let get_mnlistdiff_parameter = json!(param);
     request = client.build_request("getMnListDiff", get_mnlistdiff_parameter);
     match client.send_request(&request).and_then(|res| res.into_result::<GetMnListDiffResult>()) {
+        Ok(result) => println!("{:?}", result),
+        Err(e) => println!("error {}", e),
+    }
+
+    let param = GetUTXOParameter { 
+        address : vec![String::from("yWfKKt8JCGJWZRsNGe2ZJ43pUpmxEKiqwL"), String::from("yN7E9PWBT9c5NBJnzHBU3ZfwzFpQZG9Wpe")],
+        from : 0,
+        to : 5,
+        fromHeight : 1000,
+        toHeight : 20000
+    };
+    let get_utxo_parameter = json!(param);
+    request = client.build_request("getUTXO", get_utxo_parameter);
+    match client.send_request(&request).and_then(|res| res.into_result::<GetUTXOResult>()) {
         Ok(result) => println!("{:?}", result),
         Err(e) => println!("error {}", e),
     }
